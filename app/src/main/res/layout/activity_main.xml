@@ -1,23 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_activity_relative_layout_father"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.danieletavernelli.onstage.MainActivity">
+    android:background="@color/white"
+    tools:context="com.example.danieletavernelli.onstage.activity.MainActivity"
+    android:clipChildren="false"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <View
+        android:id="@+id/main_activity_picture_separator"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp" />
 
-    <ListView
-        android:id="@+id/list_view"
+    <LinearLayout
+
+        android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_toLeftOf="@id/main_activity_picture_separator"
+        android:layout_toStartOf="@id/main_activity_picture_separator"
+        android:orientation="vertical"
+        android:weightSum="3"
+        android:clipChildren="false"
+        >
+
+
+        <ImageView
+            android:id="@+id/main_activity_on_stage"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/on_stage"
+            android:src="@drawable/on_stage"
+            android:tint="@color/grey"
+
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/main_activity_picture_separator"
+        android:layout_toRightOf="@id/main_activity_picture_separator"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+        <ImageView
+            android:id="@+id/main_activity_mixer"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/on_console"
+            android:src="@drawable/mixer"
+            android:tint="@color/grey" />
+
+
+
+    </LinearLayout>
+
+
 </RelativeLayout>
+
+
