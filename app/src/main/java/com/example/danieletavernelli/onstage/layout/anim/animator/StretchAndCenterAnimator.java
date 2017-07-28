@@ -13,18 +13,18 @@ public class StretchAndCenterAnimator  {
 
     private AnimatorSet animatorSet = new AnimatorSet();
 
-    public StretchAndCenterAnimator(Object object,float centerX, float centerY ,int duration ) {
+    public StretchAndCenterAnimator(Object object,float centerX, float centerY ,float scaleX, float scaleY, int duration ) {
 
-        animatorSet.play(ObjectAnimator.ofFloat(object,"translationX",centerX)).with(ObjectAnimator.ofFloat(object,"translationY",centerY)).with(ObjectAnimator.ofFloat(object,"scaleX",1.5f)).with(ObjectAnimator.ofFloat(object,"scaleY",1.5f));
+        animatorSet.play(ObjectAnimator.ofFloat(object,"translationX",centerX)).with(ObjectAnimator.ofFloat(object,"translationY",centerY)).with(ObjectAnimator.ofFloat(object,"scaleX",scaleX)).with(ObjectAnimator.ofFloat(object,"scaleY",scaleY));
 
         animatorSet.setDuration(duration);
 
     }
 
 
-    public StretchAndCenterAnimator(final Activity oldActivity, final Class newActivity, Object object, float centerX, float centerY , int duration ) {
+    public StretchAndCenterAnimator(final Activity oldActivity, final Class newActivity, Object object, float centerX, float centerY , float scaleX, float scaleY, int duration ) {
 
-        animatorSet.play(ObjectAnimator.ofFloat(object,"translationX",centerX)).with(ObjectAnimator.ofFloat(object,"translationY",centerY)).with(ObjectAnimator.ofFloat(object,"scaleX",1.5f)).with(ObjectAnimator.ofFloat(object,"scaleY",1.5f));
+        animatorSet.play(ObjectAnimator.ofFloat(object,"translationX",centerX)).with(ObjectAnimator.ofFloat(object,"translationY",centerY)).with(ObjectAnimator.ofFloat(object,"scaleX",scaleX)).with(ObjectAnimator.ofFloat(object,"scaleY",scaleY));
 
         animatorSet.setDuration(duration);
 
