@@ -2,4 +2,13 @@
     <string name="app_name">OnStage</string>
     <string name="on_stage">On stage!</string>
     <string name="on_console">On console</string>
+    <string name="acoustic_guitar">Acoustic guitar</string>
+    <string name="electric_guitar">Electric guitar</string>
+    <string name="bass">Bass</string>
+    <string name="drum">Drum</string>
+    <string name="voice">Voice</string>
+    <string name="keyboard">Keyboard</string>
+    <string name="add_instrument">Add instrument</string>
+    <string name="save">save</string>
+    <string name="start_concert">START CONCERT</string>
 </resources>

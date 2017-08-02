@@ -18,8 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.OnStageActivity" />
-        <activity android:name=".activity.MixerActivity"></activity>
+        <activity android:name=".activity.OnStage.OnStageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.Mixer.MixerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.Mixer.DesignStageActivity"></activity>
     </application>
 
 </manifest>

@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/white"
 
-    tools:context="com.example.danieletavernelli.onstage.activity.OnStageActivity">
+    tools:context="com.example.danieletavernelli.onstage.activity.OnStage.OnStageActivity">
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="on stage"
+    android:text="lista palchi in modalità concerti presenti nelle vicinanze, cliccandoci si apre la lista degli strumenti del concerto ecc..."
     android:layout_centerInParent="true"
     android:textColor="@color/grey"/>
 </RelativeLayout>

@@ -37,6 +37,7 @@ public class TabStrumentiService {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
+                Contract.TabStrumenti._ID,
                 Contract.TabStrumenti.COLUMN_NAME_DESC_INSTRUMENT,
                 Contract.TabStrumenti.COLUMN_NAME_ICON
         };
@@ -47,7 +48,7 @@ public class TabStrumentiService {
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =
-                Contract.TabStrumenti.COLUMN_NAME_DESC_INSTRUMENT + " DESC";
+                Contract.TabStrumenti.COLUMN_NAME_DESC_INSTRUMENT;
 
         Cursor cursor = helper.getReadableDatabase().query(
                 Contract.TabStrumenti.TABLE_NAME,                     // The table to query
@@ -59,16 +60,7 @@ public class TabStrumentiService {
                 sortOrder                                 // The sort order
         );
 
-        ArrayList<TabStrumenti> listToReturn = new ArrayList<>();
-        TabStrumenti tabStrumenti;
-        while (cursor.moveToNext()) {
-            tabStrumenti = new TabStrumenti();
-            tabStrumenti.set_ID(cursor.getLong(cursor.getColumnIndexOrThrow(Contract.TabStrumenti._ID)));
-            tabStrumenti.setDescInstrument(cursor.getString(cursor.getColumnIndexOrThrow(Contract.TabStrumenti.COLUMN_NAME_DESC_INSTRUMENT)));
-            tabStrumenti.setIcon(cursor.getBlob(cursor.getColumnIndexOrThrow(Contract.TabStrumenti.COLUMN_NAME_ICON)));
-        }
-        cursor.close();
-        return listToReturn;
+        return fromCursorToArrayList(cursor);
     }
 
     public void delete(TabStrumenti tabStrumenti) {
@@ -111,4 +103,42 @@ public class TabStrumentiService {
 
     }
 
+    public ArrayList<TabStrumenti> getAllStrumenti() {
+        String[] projection = {
+                Contract.TabStrumenti._ID,
+                Contract.TabStrumenti.COLUMN_NAME_DESC_INSTRUMENT,
+                Contract.TabStrumenti.COLUMN_NAME_ICON
+        };
+
+        String sortOrder =
+                Contract.TabStrumenti.COLUMN_NAME_DESC_INSTRUMENT;
+
+        Cursor cursor = helper.getReadableDatabase().query(
+                Contract.TabStrumenti.TABLE_NAME,                     // The table to query
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+       return fromCursorToArrayList(cursor);
+
+    }
+
+
+    private ArrayList<TabStrumenti> fromCursorToArrayList (Cursor cursor) {
+        ArrayList<TabStrumenti> listToReturn = new ArrayList<>();
+        TabStrumenti tabStrumenti;
+        while (cursor.moveToNext()) {
+            tabStrumenti = new TabStrumenti();
+            tabStrumenti.set_ID(cursor.getLong(cursor.getColumnIndexOrThrow(Contract.TabStrumenti._ID)));
+            tabStrumenti.setDescInstrument(cursor.getString(cursor.getColumnIndexOrThrow(Contract.TabStrumenti.COLUMN_NAME_DESC_INSTRUMENT)));
+            tabStrumenti.setIcon(cursor.getBlob(cursor.getColumnIndexOrThrow(Contract.TabStrumenti.COLUMN_NAME_ICON)));
+            listToReturn.add(tabStrumenti);
+        }
+        cursor.close();
+        return listToReturn;
+    }
 }

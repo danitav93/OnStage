@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.view.Display;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 /**
 
@@ -34,6 +38,26 @@ public class Methods {
         return stream.toByteArray();
     }
 
+    //ritorna un drawable from array di byte
+    public static Bitmap fromByteArrayToBitmap(byte[] byteArray) {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    }
+
+    //ritorna l'altezza dello schermo
+    public static float getScreenHeight(Activity c) {
+        Display display = c.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.y;
+    }
+
+    //ritorna l'altezza dello schermo
+    public static float getScreenWidth(Activity c) {
+        Display display = c.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
+    }
 
 
 
@@ -59,4 +83,6 @@ public class Methods {
         Toast toast = Toast.makeText(context, message, duration);
         toast.show();
     }
+
+
 }

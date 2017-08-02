@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.example.danieletavernelli.onstage.activity.Mixer.DesignStageActivity">
+    <LinearLayout
+        android:id="@+id/activity_design_stage_buttons_bar"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+        <Button
+            android:id="@+id/activity_design_stage_add_instrument_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/add_instrument"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:id="@+id/activity_design_stage_save_stage_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/save"
+            android:layout_margin="5dp"
+            />
+
+        <Button
+            android:id="@+id/activity_design_stage_start_stage_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/start_concert"
+            android:layout_margin="5dp"
+            />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/activity_design_stage_drag_stage_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/stage"
+        android:layout_below="@id/activity_design_stage_buttons_bar">
+    </RelativeLayout>
+
+</RelativeLayout>

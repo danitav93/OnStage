@@ -95,10 +95,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     //questo metodo setta i listener per le animazioni.
     private void prepareLayout() {
