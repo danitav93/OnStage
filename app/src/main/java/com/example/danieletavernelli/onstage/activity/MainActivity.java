@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 
+import com.example.danieletavernelli.onstage.Constants.ApplicationCostants;
 import com.example.danieletavernelli.onstage.R;
 import com.example.danieletavernelli.onstage.Thread.DatabaseInitializationAsyncTask;
 import com.example.danieletavernelli.onstage.activity.Mixer.MixerActivity;
@@ -21,6 +22,7 @@ import com.example.danieletavernelli.onstage.layout.anim.animator.LinearAnimator
 import com.example.danieletavernelli.onstage.layout.anim.animator.StretchAndCenterAnimator;
 import com.example.danieletavernelli.onstage.utility.Methods;
 
+import static com.example.danieletavernelli.onstage.utility.Methods.getScreenHeight;
 import static com.example.danieletavernelli.onstage.utility.Methods.showShortToast;
 
 // Main activity: possibilità di scelta tra la modalità "onStage" e la modalità "mixer"
@@ -61,7 +63,14 @@ public class MainActivity extends AppCompatActivity {
 
         initDatabase();
 
+        initConstants();
+
         prepareLayout();
+
+    }
+
+    private void initConstants() {
+        ApplicationCostants.instrumentIconsSide = (int)getScreenHeight(this)/6;
 
     }
 

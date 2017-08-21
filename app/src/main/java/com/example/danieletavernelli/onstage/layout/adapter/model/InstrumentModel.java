@@ -1,7 +1,9 @@
 package com.example.danieletavernelli.onstage.layout.adapter.model;
 
 
+
 import android.graphics.Bitmap;
+
 
 import com.example.danieletavernelli.onstage.interfaces.AdapterModel;
 
@@ -10,9 +12,12 @@ import com.example.danieletavernelli.onstage.interfaces.AdapterModel;
  */
 public class InstrumentModel implements AdapterModel{
 
+    private Long id;
+
     private String descInstrument;
 
     private Bitmap instrumentIcon;
+
 
     public String getDescInstrument() {
         return descInstrument;
@@ -28,5 +33,13 @@ public class InstrumentModel implements AdapterModel{
 
     public void setInstrumentIcon(Bitmap instrumentIcon) {
         this.instrumentIcon = instrumentIcon;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

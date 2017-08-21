@@ -1,6 +1,8 @@
 package com.example.danieletavernelli.onstage.dialog;
 
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,14 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.RelativeLayout;
 
+
+import com.example.danieletavernelli.onstage.Constants.ApplicationCostants;
 import com.example.danieletavernelli.onstage.R;
 import com.example.danieletavernelli.onstage.database.Helper;
-import com.example.danieletavernelli.onstage.database.entity.TabStrumenti;
-import com.example.danieletavernelli.onstage.database.service.TabStrumentiService;
+import com.example.danieletavernelli.onstage.database.entity.TabInstrumentEntity;
+import com.example.danieletavernelli.onstage.database.service.TabInstrumentService;
 import com.example.danieletavernelli.onstage.interfaces.AdapterModel;
-import com.example.danieletavernelli.onstage.interfaces.implementation.ItemTouchAdapterInterfaceImpl;
+import com.example.danieletavernelli.onstage.interfaces.implementation.InstrumentItemTouchAdapterInterfaceImpl;
 import com.example.danieletavernelli.onstage.layout.adapter.InstrumentAdapter;
 import com.example.danieletavernelli.onstage.layout.adapter.model.InstrumentModel;
 import com.example.danieletavernelli.onstage.layout.callback.ItemTouchHelperCallback;
@@ -26,8 +29,9 @@ import com.example.danieletavernelli.onstage.layout.callback.ItemTouchHelperCall
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static com.example.danieletavernelli.onstage.utility.Methods.fromByteArrayToBitmap;
-import static com.example.danieletavernelli.onstage.utility.Methods.getScreenHeight;
+import static com.example.danieletavernelli.onstage.utility.Methods.scaleBitmap;
 import static com.example.danieletavernelli.onstage.utility.Methods.showShortToast;
 
 /**
@@ -38,7 +42,9 @@ public class AddInstrumentOnStageDialog extends DialogFragment {
 
 
     //Data
-    private List<AdapterModel> listStrumenti = new ArrayList<>();
+    private List<AdapterModel> listStrumentiModel = new ArrayList<>();
+    private List<TabInstrumentEntity> listStrumentiEntity = new ArrayList<>();
+
 
 
     //Adapter
@@ -47,15 +53,16 @@ public class AddInstrumentOnStageDialog extends DialogFragment {
     //Database
     private Helper helper;
 
-    //Layout
-    private RelativeLayout dragAndDropLayoutLayout;
+    //Context
+    private Context context;
 
 
-    public static AddInstrumentOnStageDialog newInstance(Context context, RelativeLayout dragAndDropLayoutLayout) {
+    public static AddInstrumentOnStageDialog newInstance(Context context) {
         AddInstrumentOnStageDialog instrumentOnStageDialog = new AddInstrumentOnStageDialog();
+        instrumentOnStageDialog.context=context;
         instrumentOnStageDialog.helper = new Helper(context);
-        instrumentOnStageDialog.dragAndDropLayoutLayout = dragAndDropLayoutLayout;
         instrumentOnStageDialog.prepareListInstruments();
+        instrumentOnStageDialog.initializeInstrumentAdapter();
         return instrumentOnStageDialog;
     }
 
@@ -76,7 +83,7 @@ public class AddInstrumentOnStageDialog extends DialogFragment {
 
         prepareRecycleView(v);
 
-        prepareLayout();
+
 
         return v;
     }
@@ -86,24 +93,26 @@ public class AddInstrumentOnStageDialog extends DialogFragment {
 
         RecyclerView instrumentRecyclerView = (RecyclerView) v.findViewById(R.id.dialog_add_instrument_recycler_view);
 
-        instrumentAdapter = new InstrumentAdapter(getContext(), listStrumenti, dragAndDropLayoutLayout);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         instrumentRecyclerView.setLayoutManager(layoutManager);
         instrumentRecyclerView.setItemAnimator(new DefaultItemAnimator());
         instrumentRecyclerView.setAdapter(instrumentAdapter);
 
-        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(new ItemTouchAdapterInterfaceImpl(listStrumenti, instrumentAdapter));
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(new InstrumentItemTouchAdapterInterfaceImpl(listStrumentiModel, instrumentAdapter,helper,context));
         new ItemTouchHelper(callback).attachToRecyclerView(instrumentRecyclerView);
     }
 
     private void prepareListInstruments() {
         try {
             InstrumentModel strumentoModel;
-            for (TabStrumenti tabStrumenti : new TabStrumentiService(helper).getAllStrumenti()) {
+            listStrumentiEntity =  new TabInstrumentService(helper).getAllStrumenti();
+            for (TabInstrumentEntity tabInstrumentEntity :listStrumentiEntity) {
                 strumentoModel = new InstrumentModel();
-                strumentoModel.setDescInstrument(tabStrumenti.getDescInstrument());
-                strumentoModel.setInstrumentIcon(fromByteArrayToBitmap(tabStrumenti.getIcon()));
-                listStrumenti.add(strumentoModel);
+                strumentoModel.setDescInstrument(tabInstrumentEntity.getDescInstrument());
+                Bitmap iconResized = scaleBitmap(fromByteArrayToBitmap(tabInstrumentEntity.getIcon()), ApplicationCostants.instrumentIconsSide);
+                strumentoModel.setInstrumentIcon(iconResized);
+                strumentoModel.setId(tabInstrumentEntity.get_ID());
+                listStrumentiModel.add(strumentoModel);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,8 +120,14 @@ public class AddInstrumentOnStageDialog extends DialogFragment {
         }
     }
 
-    private void prepareLayout() {
-        instrumentAdapter.setItemHeight(getScreenHeight(getActivity()) / 6f);
+
+
+    private void initializeInstrumentAdapter() {
+        instrumentAdapter = new InstrumentAdapter(context, listStrumentiModel);
     }
 
+
+    public List<TabInstrumentEntity> getListStrumentiEntity() {
+        return listStrumentiEntity;
+    }
 }

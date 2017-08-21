@@ -12,7 +12,8 @@ import android.view.Display;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.util.List;
+import java.io.Serializable;
+
 
 /**
 
@@ -38,9 +39,14 @@ public class Methods {
         return stream.toByteArray();
     }
 
-    //ritorna un drawable from array di byte
+    //ritorna un Bitmap from array di byte
     public static Bitmap fromByteArrayToBitmap(byte[] byteArray) {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    }
+
+    //ritorna drawable from array di Byte
+    public static Drawable fromByteArrayToDrawable(Context context,byte[] byteArray) {
+        return new BitmapDrawable(context.getResources(),BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
     }
 
     //ritorna l'altezza dello schermo
@@ -59,13 +65,30 @@ public class Methods {
         return size.x;
     }
 
+    //resize bitmap
+    public static Bitmap scaleBitmap(Bitmap bitmap, int targetW) {
+        int targetH;
+        float percentage;
+        percentage = (float) (targetW) / (float) bitmap.getWidth();
+        targetH = (int)(Math.ceil(bitmap.getHeight() * percentage));
+        return Bitmap.createScaledBitmap(bitmap, targetW, targetH, true);
+
+    }
+
 
 
     //INTENT
 
-    //comincia una nuova activity terminando l'auutale
+    //comincia una nuova activity
     public static void startActivity (Activity actualActivity, Class newActivity) {
         Intent intent = new Intent(actualActivity,newActivity);
+        actualActivity.startActivity(intent);
+    }
+
+    //comincia una nuova activity inserendo degli argomenti
+    public static void startActivityWithExtra (Activity actualActivity, Class newActivity, String extraTag, Serializable extra) {
+        Intent intent = new Intent(actualActivity,newActivity);
+        intent.putExtra(extraTag,extra);
         actualActivity.startActivity(intent);
     }
 

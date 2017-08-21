@@ -22,7 +22,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.Mixer.MixerActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.Mixer.DesignStageActivity"></activity>
+        <activity android:name=".activity.Mixer.DesignStageActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

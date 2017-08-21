@@ -11,7 +11,7 @@ public final class Contract {
 
     /* Inner classes that defines the tables contents */
 
-    public static class TabStrumenti implements BaseColumns {
+    public static class TabInstrument implements BaseColumns {
         public static final String TABLE_NAME = "TAB_INSTRUMENTS";
         public static final String COLUMN_NAME_DESC_INSTRUMENT = "DESC_INSTRUMENT";
         public static final String COLUMN_NAME_ICON = "ICON";
@@ -39,10 +39,10 @@ public final class Contract {
 
 
     public static final String SQL_CREATE_TAB_INSTRUMENTS =
-            "CREATE TABLE " + TabStrumenti.TABLE_NAME + " (" +
-                    TabStrumenti._ID + " INTEGER PRIMARY KEY," +
-                    TabStrumenti.COLUMN_NAME_DESC_INSTRUMENT + " TEXT," +
-                    TabStrumenti.COLUMN_NAME_ICON + " BLOB);";
+            "CREATE TABLE " + TabInstrument.TABLE_NAME + " (" +
+                    TabInstrument._ID + " INTEGER PRIMARY KEY," +
+                    TabInstrument.COLUMN_NAME_DESC_INSTRUMENT + " TEXT," +
+                    TabInstrument.COLUMN_NAME_ICON + " BLOB);";
 
     public static final String SQL_CREATE_TAB_STAGE =
             "CREATE TABLE " + TabStage.TABLE_NAME + " (" +
@@ -63,7 +63,7 @@ public final class Contract {
 
     /*Script delete table */
     public static final String SQL_DELETE_TAB_INSTRUMENTS =
-            "DROP TABLE IF EXISTS " + TabStrumenti.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + TabInstrument.TABLE_NAME;
 
     public static final String SQL_DELETE_TAB_STAGE =
             "DROP TABLE IF EXISTS " + TabStage.TABLE_NAME;
@@ -71,5 +71,27 @@ public final class Contract {
     public static final String SQL_DELETE_TAB_REL_STAGE_INSTRUMENT =
             "DROP TABLE IF EXISTS " + TabRelStageInstrument.TABLE_NAME;
 
+
+
+    //projection
+    public static final String[] TabRelStageInstrumentProjection = {
+            TabRelStageInstrument._ID,
+            TabRelStageInstrument.COLUMN_NAME_INSTRUMENT_ID,
+            TabRelStageInstrument.COLUMN_NAME_COORDINATE_X,
+            TabRelStageInstrument.COLUMN_NAME_COORDINATE_Y,
+            TabRelStageInstrument.COLUMN_NAME_STAGE_ID
+
+    };
+
+    public static final String[] TabStageProjection = {
+            TabStage._ID,
+            TabStage.COLUMN_NAME_DESC_STAGE
+    } ;
+
+    public static final String[] TabInstrumentProjection = {
+            TabInstrument._ID,
+            TabInstrument.COLUMN_NAME_DESC_INSTRUMENT,
+            TabInstrument.COLUMN_NAME_ICON
+    };
 
 }

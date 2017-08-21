@@ -8,9 +8,12 @@ import com.example.danieletavernelli.onstage.interfaces.AdapterModel;
  */
 public class StageModel implements AdapterModel {
 
+    private Long Id;
+
     private String descName;
 
-    public StageModel (String descName) {
+    public StageModel (long id,String descName) {
+        this.Id = id;
         this.descName = descName;
     }
 
@@ -20,5 +23,13 @@ public class StageModel implements AdapterModel {
 
     public void setDescName(String descName) {
         this.descName = descName;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 }

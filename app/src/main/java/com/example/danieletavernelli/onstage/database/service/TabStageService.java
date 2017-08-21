@@ -8,11 +8,12 @@ import com.example.danieletavernelli.onstage.database.Contract;
 import com.example.danieletavernelli.onstage.database.Helper;
 import com.example.danieletavernelli.onstage.database.entity.TabStageEntity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class TabStageService {
+public class TabStageService implements Serializable {
 
     private Helper helper;
 
@@ -41,33 +42,42 @@ public class TabStageService {
     public void delete(TabStageEntity tabStageEntity) {
 
         // Define 'where' part of query.
-        String selection = Contract.TabStage._ID + " LIKE ?";
+        String selection = Contract.TabStage._ID + " = ?";
         // Specify arguments in placeholder order.
         String[] selectionArgs = {tabStageEntity.get_ID().toString()};
 
         // Issue SQL statement.
-        helper.getWritableDatabase().delete(Contract.TabRelStageInstrument.TABLE_NAME, selection, selectionArgs);
+        helper.getWritableDatabase().delete(Contract.TabStage.TABLE_NAME, selection, selectionArgs);
 
 
     }
 
+    public void update(TabStageEntity tabStageEntity) {
+
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(Contract.TabStage.COLUMN_NAME_DESC_STAGE,tabStageEntity.getDescStage() );
+
+        // Which row to update, based on the title
+        String selection = Contract.TabStage._ID + " = ?";
+        String[] selectionArgs = { tabStageEntity.get_ID().toString() };
+
+        int count = helper.getWritableDatabase().update(
+                Contract.TabStage.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+    }
+
     public List<TabStageEntity> getStageList() {
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                Contract.TabStage._ID,
-                Contract.TabStage.COLUMN_NAME_DESC_STAGE,
-        };
-
-
 
         // How you want the results sorted in the resulting Cursor
         String sortOrder =Contract.TabStage._ID;
 
-
         Cursor cursor = helper.getReadableDatabase().query(
                 Contract.TabStage.TABLE_NAME,                     // The table to query
-                projection,                               // The columns to return
+                Contract.TabStageProjection,                               // The columns to return
                 null,                                     // The columns for the WHERE clause
                 null,                            // The values for the WHERE clause
                 null,                                     // don't group the rows
@@ -75,6 +85,49 @@ public class TabStageService {
                 sortOrder                                 // The sort order
         );
 
+
+        return fromCursorToArrayList(cursor);
+    }
+
+
+    public TabStageEntity getNewTabStage() {
+        ContentValues values = new ContentValues();
+        values.put(Contract.TabStage.COLUMN_NAME_DESC_STAGE,"");
+        Long newId = helper.getWritableDatabase().insert(Contract.TabStage.TABLE_NAME, null, values);
+        return getStageById(newId);
+    }
+
+    public TabStageEntity getStageById(Long id) {
+        String selection = Contract.TabStage._ID + " = ?";
+        String[] selectionArgs = {id.toString()};
+        Cursor cursor = helper.getReadableDatabase().query(
+                Contract.TabStage.TABLE_NAME,                     // The table to query
+                Contract.TabStageProjection,                               // The columns to return
+                selection,                                     // The columns for the WHERE clause
+                selectionArgs,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                 // The sort order
+        );
+
+        ArrayList<TabStageEntity> listStage = fromCursorToArrayList(cursor);
+        if(listStage.size()>0) {
+            return listStage.get(0);
+        }
+        return null;
+    }
+
+    public void deleteByIdStage(Long id) {
+        // Define 'where' part of query.
+        String selection = Contract.TabStage._ID + " = ?";
+        // Specify arguments in placeholder order.
+        String[] selectionArgs = {id.toString()};
+
+        // Issue SQL statement.
+        helper.getWritableDatabase().delete(Contract.TabStage.TABLE_NAME, selection, selectionArgs);
+    }
+
+    private ArrayList<TabStageEntity> fromCursorToArrayList(Cursor cursor) {
         ArrayList<TabStageEntity> listToReturn = new ArrayList<>();
         TabStageEntity tabStage;
         while (cursor.moveToNext()) {
@@ -86,7 +139,6 @@ public class TabStageService {
         cursor.close();
         return listToReturn;
     }
-
 
 
 }

@@ -11,4 +11,8 @@
     <string name="add_instrument">Add instrument</string>
     <string name="save">save</string>
     <string name="start_concert">START CONCERT</string>
+    <string name="player">Player</string>
+    <string name="notes">Notes</string>
+    <string name="remove_from_stage">Remove from stage</string>
+    <string name="name">Name</string>
 </resources>

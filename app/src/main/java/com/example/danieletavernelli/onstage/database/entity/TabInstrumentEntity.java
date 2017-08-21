@@ -1,16 +1,16 @@
 package com.example.danieletavernelli.onstage.database.entity;
 
 
-public class TabStrumenti {
+public class TabInstrumentEntity {
 
     private Long _ID;
     private String descInstrument;
     private byte[] icon;
 
-    public TabStrumenti() {
+    public TabInstrumentEntity() {
     }
 
-    public TabStrumenti(Long _ID, String descInstrument, byte[] icon) {
+    public TabInstrumentEntity(Long _ID, String descInstrument, byte[] icon) {
         this._ID = _ID;
         this.descInstrument = descInstrument;
         this.icon = icon;

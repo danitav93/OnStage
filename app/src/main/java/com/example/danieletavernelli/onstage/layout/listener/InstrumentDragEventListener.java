@@ -1,8 +1,14 @@
 package com.example.danieletavernelli.onstage.layout.listener;
 
 
+
 import android.view.DragEvent;
 import android.view.View;
+
+
+import com.example.danieletavernelli.onstage.activity.Mixer.DesignStageActivity;
+import com.example.danieletavernelli.onstage.database.entity.TabInstrumentEntity;
+import com.example.danieletavernelli.onstage.singleton.SelectedStageSingleton;
 
 
 /**
@@ -10,7 +16,6 @@ import android.view.View;
  */
 
 public class InstrumentDragEventListener implements View.OnDragListener {
-
 
     @Override
     public boolean onDrag(View v, DragEvent event) {
@@ -41,6 +46,8 @@ public class InstrumentDragEventListener implements View.OnDragListener {
                     view.setX(event.getX()-view.getHeight()/2);
                     view.setY(event.getY()-view.getHeight()/2);
                     view.invalidate();
+                    SelectedStageSingleton.getInstance().updateInstrumentCoordinate((TabInstrumentEntity) view.getTag(),view.getX(),view.getY());
+                    ((DesignStageActivity)view.getContext()).setSavedSinceLastModifica(false);
                     break;
 
                 case DragEvent.ACTION_DRAG_ENDED:

@@ -21,7 +21,7 @@ import com.example.danieletavernelli.onstage.database.Helper;
 import com.example.danieletavernelli.onstage.database.entity.TabStageEntity;
 import com.example.danieletavernelli.onstage.database.service.TabStageService;
 import com.example.danieletavernelli.onstage.interfaces.AdapterModel;
-import com.example.danieletavernelli.onstage.interfaces.implementation.ItemTouchAdapterInterfaceImpl;
+import com.example.danieletavernelli.onstage.interfaces.implementation.StageItemTouchAdapterInterfaceImpl;
 import com.example.danieletavernelli.onstage.layout.adapter.StageAdapter;
 import com.example.danieletavernelli.onstage.layout.adapter.model.StageModel;
 import com.example.danieletavernelli.onstage.layout.callback.ItemTouchHelperCallback;
@@ -66,31 +66,42 @@ public class MixerActivity extends AppCompatActivity {
 
         prepareRecycleView();
 
-        prepareStageData();
-
         prepareLayout();
 
         prepareListeners();
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        prepareStageData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        helper.close();
+    }
+
     private void  prepareRecycleView() {
         stageRecyclerView = (RecyclerView) findViewById(R.id.activity_mixer_recycler_view);
 
-        stageAdapter = new StageAdapter(stageList);
+        stageAdapter = new StageAdapter(this,stageList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         stageRecyclerView.setLayoutManager(layoutManager);
         stageRecyclerView.setItemAnimator(new DefaultItemAnimator());
         stageRecyclerView.setAdapter(stageAdapter);
 
-        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(new ItemTouchAdapterInterfaceImpl(stageList,stageAdapter));
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(new StageItemTouchAdapterInterfaceImpl(stageList,stageAdapter));
         new ItemTouchHelper(callback).attachToRecyclerView(stageRecyclerView);
     }
 
     private void prepareStageData() {
         try {
+            stageList.clear();
             for (TabStageEntity tabStageEntity : new TabStageService(helper).getStageList())  {
-                stageList.add(new StageModel(tabStageEntity.getDescStage()));
+                stageList.add(new StageModel(tabStageEntity.get_ID(),tabStageEntity.getDescStage()));
             }
             stageAdapter.notifyDataSetChanged();
         } catch (Exception e) {
@@ -113,6 +124,7 @@ public class MixerActivity extends AppCompatActivity {
         addConcertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(addConcertButton, "rotation", 3600).setDuration(1000);
                 objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
                 objectAnimator.addListener(new Animator.AnimatorListener() {
