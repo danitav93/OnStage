@@ -98,7 +98,7 @@ public class AddInstrumentOnStageDialog extends DialogFragment {
         instrumentRecyclerView.setItemAnimator(new DefaultItemAnimator());
         instrumentRecyclerView.setAdapter(instrumentAdapter);
 
-        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(new InstrumentItemTouchAdapterInterfaceImpl(listStrumentiModel, instrumentAdapter,helper,context));
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(new InstrumentItemTouchAdapterInterfaceImpl(listStrumentiModel, instrumentAdapter));
         new ItemTouchHelper(callback).attachToRecyclerView(instrumentRecyclerView);
     }
 

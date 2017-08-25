@@ -93,7 +93,7 @@ public class MixerActivity extends AppCompatActivity {
         stageRecyclerView.setItemAnimator(new DefaultItemAnimator());
         stageRecyclerView.setAdapter(stageAdapter);
 
-        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(new StageItemTouchAdapterInterfaceImpl(stageList,stageAdapter));
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(new StageItemTouchAdapterInterfaceImpl(stageList,stageAdapter,helper,this));
         new ItemTouchHelper(callback).attachToRecyclerView(stageRecyclerView);
     }
 

@@ -29,15 +29,6 @@
             android:text="@string/save"
             android:layout_margin="5dp"
             />
-
-        <Button
-            android:id="@+id/activity_design_stage_start_stage_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/start_concert"
-            android:layout_margin="5dp"
-            />
     </LinearLayout>
 
 
@@ -46,7 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/stage"
-        android:layout_below="@id/activity_design_stage_buttons_bar">
+        android:layout_below="@id/activity_design_stage_buttons_bar"
+        android:layout_above="@+id/activity_design_stage_start_stage_button"
+        >
         <TextView
             android:id="@+id/activity_design_stage_desc_stage"
             android:layout_width="wrap_content"
@@ -55,4 +48,13 @@
 
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/activity_design_stage_start_stage_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_concert"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        />
 </RelativeLayout>

@@ -11,6 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.view.Display;
 import android.widget.Toast;
 
+import com.example.danieletavernelli.onstage.Constants.ApplicationCostants;
+
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
@@ -71,6 +73,11 @@ public class Methods {
         float percentage;
         percentage = (float) (targetW) / (float) bitmap.getWidth();
         targetH = (int)(Math.ceil(bitmap.getHeight() * percentage));
+        while (targetH> ApplicationCostants.instrumentIconsSide) {
+            targetW=targetW-1;
+            percentage = (float) (targetW) / (float) bitmap.getWidth();
+            targetH = (int)(Math.ceil(bitmap.getHeight() * percentage));
+        }
         return Bitmap.createScaledBitmap(bitmap, targetW, targetH, true);
 
     }

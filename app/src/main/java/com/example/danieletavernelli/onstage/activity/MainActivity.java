@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initConstants() {
-        ApplicationCostants.instrumentIconsSide = (int)getScreenHeight(this)/6;
+        ApplicationCostants.instrumentIconsSide = (int)getScreenHeight(this)/8;
 
     }
 

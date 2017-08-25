@@ -22,19 +22,20 @@ import static com.example.danieletavernelli.onstage.utility.Methods.showShortToa
 public class InstrumentItemTouchAdapterInterfaceImpl implements ItemTouchAdapterInterface {
     private List<AdapterModel> list;
     private RecyclerView.Adapter recyclerView;
-    private Helper helper;
-    private Context context;
-
-    public InstrumentItemTouchAdapterInterfaceImpl(List<AdapterModel> list, RecyclerView.Adapter recyclerView, Helper helper, Context context) {
+   /* private Helper helper;
+    private Context context;*/
+    public InstrumentItemTouchAdapterInterfaceImpl(List<AdapterModel> list, RecyclerView.Adapter recyclerView/*, Helper helper, Context context*/) {
         this.list=list;
         this.recyclerView = recyclerView;
-        this.helper=helper;
-        this.context=context;
+       /* this.helper=helper;
+        this.context=context;*/
     }
 
     @Override
     public void onItemDismiss(int position) {
-        try {
+        list.remove(position);
+        recyclerView.notifyItemRemoved(position);
+       /* try {
             list.remove(position);
             recyclerView.notifyItemRemoved(position);
             if (helper == null) {
@@ -45,7 +46,7 @@ public class InstrumentItemTouchAdapterInterfaceImpl implements ItemTouchAdapter
         } catch (Exception e) {
             e.printStackTrace();
             showShortToast(context,"Errore nell'eliminazione dello strumento dal database.");
-        }
+        }*/
     }
 
     @Override

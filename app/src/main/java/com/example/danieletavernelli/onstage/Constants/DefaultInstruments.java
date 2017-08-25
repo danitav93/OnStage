@@ -24,6 +24,12 @@ public class DefaultInstruments {
                 new TabInstrumentEntity(4L,context.getResources().getString(R.string.drum),fromDrawableToByteArray(ResourcesCompat.getDrawable(context.getResources(), R.drawable.drum, null))),
                 new TabInstrumentEntity(5L,context.getResources().getString(R.string.voice),fromDrawableToByteArray(ResourcesCompat.getDrawable(context.getResources(), R.drawable.voice, null))),
                 new TabInstrumentEntity(6L,context.getResources().getString(R.string.keyboard),fromDrawableToByteArray(ResourcesCompat.getDrawable(context.getResources(), R.drawable.keyboard, null))),
+                new TabInstrumentEntity(7L,context.getString(R.string.monitor1),fromDrawableToByteArray(ResourcesCompat.getDrawable(context.getResources(), R.drawable.monitor1, null))),
+                new TabInstrumentEntity(8L,context.getString(R.string.monitor2),fromDrawableToByteArray(ResourcesCompat.getDrawable(context.getResources(), R.drawable.monitor1, null))),
+                new TabInstrumentEntity(9L,context.getString(R.string.monitor3),fromDrawableToByteArray(ResourcesCompat.getDrawable(context.getResources(), R.drawable.monitor1, null))),
+                new TabInstrumentEntity(10L,context.getString(R.string.monitor4),fromDrawableToByteArray(ResourcesCompat.getDrawable(context.getResources(), R.drawable.monitor1, null))),
+
+
         };
     }
 

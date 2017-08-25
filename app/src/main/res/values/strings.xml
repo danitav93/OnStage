@@ -15,4 +15,8 @@
     <string name="notes">Notes</string>
     <string name="remove_from_stage">Remove from stage</string>
     <string name="name">Name</string>
+    <string name="monitor1">Monitor 1</string>
+    <string name="monitor2">Monitor 2</string>
+    <string name="monitor3">Monitor 3</string>
+    <string name="monitor4">Monitor 4</string>
 </resources>
